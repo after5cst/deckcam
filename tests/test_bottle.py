@@ -77,5 +77,5 @@ def test_incoming_press_is_put_in_queue():
     deckcam.server.press(page=1, bank=1)
     server_thread.join()
     assert 1 == len(deckcam.main.actions)
-    item = deckcam.main.actions.popleft()
-    assert item
+    action = deckcam.main.actions.popleft()
+    assert 0 == len(action())  # TODO : will break once Press creates more objects.
