@@ -4,7 +4,7 @@ The Bottle server used to handle incoming HTTP requests.
 import bottle
 import requests
 import threading
-from .config import get_server_port
+from .config import get_server
 from .actions.press import Press
 from .main import actions
 
@@ -17,7 +17,7 @@ def launch(*, server: bottle.ServerAdapter | None) -> threading.Thread:
     kwargs = dict(app=_create_bottle_app())
 
     if server is None:
-        kwargs["port"] = get_server_port()
+        _, kwargs["port"] = get_server()
     else:
         kwargs["server"] = server
 
@@ -32,7 +32,8 @@ def press(*, page: int, bank: int) -> None:
 
 
 def _url(suffix: str):
-    return f"http://localhost:{get_server_port()}/{suffix}"
+    host, port = get_server()
+    return f"http://{host}:{port}/{suffix}"
 
 
 def _create_bottle_app() -> bottle.Bottle:
@@ -41,6 +42,6 @@ def _create_bottle_app() -> bottle.Bottle:
     @app.route("/press/bank/<page>/<bank>")
     def press(page: int, bank: int) -> None:
         action = Press(page=page, bank=bank)
-        actions.append(action.perform)
+        actions.append(action)
 
     return app
