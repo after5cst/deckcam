@@ -22,12 +22,12 @@ class HighlightStreamDeckSelection:
         end = begin + _STREAMDECK_ROW_SIZE
 
         for bank in range(begin, end):
-            bgcolor = "ffff00" if bank == self.bank else "000000"
-            message = f"STYLE BANK {self.page} {self.bank} BGCOLOR #{bgcolor}"
+            bgcolor = "ffd700" if bank == self.bank else "000000"
+            message = f"STYLE BANK {self.page} {bank} BGCOLOR {bgcolor}"
             self._send(message)
 
-            color = "000000" if bank == self.bank else "ffffff"
-            message = f"STYLE BANK {self.page} {self.bank} COLOR #{color}"
+            color = "000000" if bank == self.bank else "f5f5f5"
+            message = f"STYLE BANK {self.page} {bank} COLOR {color}"
             self._send(message)
         return []
 

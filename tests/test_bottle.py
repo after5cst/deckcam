@@ -51,3 +51,10 @@ def test_foo():
 
     for bank in range(1, 9):
         HighlightStreamDeckSelection(page=1, bank=bank)()
+
+    assert False, """NEXT STEPS: Make CSVs to define behavior:
+    "Name", "Preset", "Cam1Random", "Cam2Random", "Cam3Random",
+    "Pulpit", 0, False, False, False,
+    "Carissa", 1, True, True, False,
+    ...
+    """
